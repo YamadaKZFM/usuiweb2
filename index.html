@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>美蚕雅（みさんが）- チーム碓氷製糸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* =========================
+           カラーパレット & ベース設定
+        ========================= */
+        :root {
+            --bg-main: #F8F5F1;
+            --brown-deep: #4B2E2E;
+            --brown-light: #7F5C49;
+            --accent-red: #B5302C;
+            --text-body: #3A2A24;
+            --white: #FFFFFF;
+            --border-light: #E8E0DB;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            color: var(--text-body);
+            background: var(--bg-main);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'YuMincho', '游明朝', serif;
+            font-weight: 500;
+        }
+
+        /* =========================
+           固定ヘッダー
+        ========================= */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 245, 241, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'YuMincho', '游明朝', serif;
+            font-size: 1.5rem;
+            color: var(--brown-deep);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-body);
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--brown-light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--brown-light);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* =========================
+           Hero セクション
+        ========================= */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-top: 80px;
+            background: var(--bg-main);
+        }
+
+        .hero::before,
+        .hero::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--brown-deep);
+        }
+
+        .hero::before {
+            top: 50px;
+        }
+
+        .hero::after {
+            bottom: 50px;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-title {
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            font-size: 5rem;
+            color: var(--brown-deep);
+            margin: 0 auto 2rem;
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            letter-spacing: 0.3em;
+            font-weight: 400;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--brown-light);
+            margin-top: 2rem;
+            letter-spacing: 0.2em;
+            line-height: 1.8;
+        }
+
+        .university-badge {
+            background: var(--brown-deep);
+            color: var(--white);
+            padding: 8px 16px;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin: 1.5rem auto 0;
+            display: inline-block;
+            letter-spacing: 0.1em;
+            box-shadow: 0 2px 8px rgba(75, 46, 46, 0.2);
+        }
+
+        /* =========================
+           共通セクションスタイル
+        ========================= */
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: var(--brown-deep);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--brown-light);
+        }
+
+        /* =========================
+           Concept / Story セクション
+        ========================= */
+        .concept {
+            background: var(--white);
+        }
+
+        .concept-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        .concept-text h3 {
+            font-size: 1.8rem;
+            color: var(--brown-deep);
+            margin-bottom: 1.5rem;
+        }
+
+        .concept-text p {
+            line-height: 2;
+            margin-bottom: 1.5rem;
+        }
+
+        .concept-image {
+            background: var(--bg-main);
+            height: 400px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brown-light);
+            font-size: 1.1rem;
+            background-image: url('usui1.jpg');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 4px 20px rgba(75, 46, 46, 0.15);
+        }
+
+        /* =========================
+           Product セクション
+        ========================= */
+        .product {
+            background: var(--bg-main);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .product-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 2px;
+            box-shadow: 0 4px 20px rgba(75, 46, 46, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card h4 {
+            font-size: 1.2rem;
+            color: var(--brown-deep);
+            margin-bottom: 1rem;
+        }
+
+        .product-card p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .price-table {
+            margin-top: 4rem;
+            background: var(--white);
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(75, 46, 46, 0.1);
+        }
+
+        .price-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .price-table th,
+        .price-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .price-table th {
+            background: var(--brown-deep);
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .price-highlight {
+            background: var(--accent-red);
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        /* =========================
+           How-to セクション
+        ========================= */
+        .howto {
+            background: var(--white);
+        }
+
+        .howto-content {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 2px;
+            box-shadow: 0 8px 30px rgba(75, 46, 46, 0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-item {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: var(--brown-deep);
+            color: var(--white);
+            border-radius: 50%;
+            line-height: 50px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .step-item h4 {
+            color: var(--brown-deep);
+            margin-bottom: 0.5rem;
+        }
+
+        /* =========================
+           Gallery セクション
+        ========================= */
+        .gallery {
+            background: var(--bg-main);
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .gallery-item {
+            background: var(--white);
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(75, 46, 46, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 200px;
+            background: var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brown-light);
+            background-size: cover;
+            background-position: center;
+        }
+
+        .gallery-image.hero-style {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><rect fill="%23F8F5F1" width="400" height="200"/><text x="200" y="50" text-anchor="middle" fill="%234B2E2E" font-size="36" font-family="serif" writing-mode="tb" letter-spacing="8px">美蚕雅</text><rect x="130" y="120" width="140" height="35" fill="%23B5302C" transform="rotate(-2 200 137)"/><text x="200" y="142" text-anchor="middle" fill="white" font-size="16" font-weight="bold">群馬産</text></svg>');
+        }
+
+        .gallery-image.product-style {
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200"><rect fill="%23F8F5F1" width="400" height="200"/><rect x="20" y="10" width="360" height="180" fill="none" stroke="%234B2E2E" stroke-width="2"/><rect x="40" y="30" width="80" height="140" fill="none" stroke="%234B2E2E" stroke-width="1"/><text x="80" y="45" text-anchor="middle" fill="%234B2E2E" font-size="12" writing-mode="tb">商品紹介</text><text x="200" y="60" text-anchor="middle" fill="%234B2E2E" font-size="32" font-family="serif" writing-mode="tb" letter-spacing="6px">美蚕雅</text><text x="320" y="50" text-anchor="middle" fill="%237F5C49" font-size="14" writing-mode="tb">シルクミサンガキット</text><rect x="140" y="160" width="120" height="20" fill="%23B5302C"/><text x="200" y="172" text-anchor="middle" fill="white" font-size="12">群馬産</text><text x="200" y="190" text-anchor="middle" fill="%234B2E2E" font-size="14">MISANGA</text></svg>');
+        }
+
+        .gallery-caption {
+            padding: 1rem;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+
+        /* =========================
+           CTA / Purchase セクション
+        ========================= */
+        .cta {
+            background: var(--white);
+            text-align: center;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--brown-deep);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--brown-light);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--brown-deep);
+            border-color: var(--brown-deep);
+        }
+
+        .btn-secondary:hover {
+            background: var(--brown-deep);
+            color: var(--white);
+        }
+
+        /* =========================
+           Footer
+        ========================= */
+        footer {
+            background: var(--brown-deep);
+            color: var(--white);
+            padding: 4rem 0 2rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: var(--white);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-section p,
+        .footer-section li {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--brown-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            opacity: 0.6;
+        }
+
+        /* =========================
+           レスポンシブ対応
+        ========================= */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-title {
+                font-size: 3rem;
+                height: 250px;
+            }
+
+            .concept-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .section {
+                padding: 60px 0;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+                height: 200px;
+            }
+
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .steps-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =========================
+           アニメーション
+        ========================= */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* スクロールアニメーション用 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- 固定ヘッダー -->
+    <header>
+        <nav class="container">
+            <a href="#" class="logo">チーム碓氷製糸</a>
+            <ul class="nav-links">
+                <li><a href="#hero">ホーム</a></li>
+                <li><a href="about.html">活動について</a></li>
+                <li><a href="#product">商品</a></li>
+                <li><a href="#howto">作り方</a></li>
+                <li><a href="#gallery">ギャラリー</a></li>
+                <li><a href="contact.html">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero セクション -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">美蚕雅</h1>
+                <p class="hero-subtitle">人との関係を紡ぐように、糸を紡ぐ</p>
+                <div class="university-badge">高崎経済大学公認活動</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept / Story セクション -->
+    <section class="concept section" id="story">
+        <div class="container">
+            <h2 class="section-title">物語</h2>
+            <div class="concept-grid">
+                <div class="concept-text fade-in">
+                    <h3>絹（シルク）を日本の名産へ</h3>
+                    <p>絹と日本の歴史は深いものの、現状あまり知られていない。絹は日本を成長させ、日本を支えてきたからこそ、より多くの人に絹の素晴らしさ、歴史をもっと知ってもらいたい。</p>
+                    <p>富岡製糸場のある群馬県から発信をしていくことで群馬県をシルクの力で盛り上げていきたい。</p>
+                    <p>大切な人に日頃伝えられない思いをのせたプレゼント。人との関係を紡ぐように、糸を紡ぐ。</p>
+                </div>
+                <div class="concept-image fade-in">
+                    <!-- 製糸工場の風景画像がここに表示されます -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product セクション -->
+    <section class="product section" id="product">
+        <div class="container">
+            <h2 class="section-title">商品内容</h2>
+            <div class="product-grid">
+                <div class="product-card fade-in">
+                    <h4>シルクの糸</h4>
+                    <p>碓氷製糸株式会社から仕入れた純国産シルクを、絹遊塾工房風花様にて草木染めで染色。3色の美しい色合いをお楽しみください。</p>
+                </div>
+                <div class="product-card fade-in">
+                    <h4>作り方ガイド</h4>
+                    <p>初心者でも安心して作れる詳細な作り方ガイドと、QRコードからアクセスできる動画マニュアルを同梱しています。</p>
+                </div>
+                <div class="product-card fade-in">
+                    <h4>メッセージカード</h4>
+                    <p>大切な人への想いを込められる、オリジナルデザインのメッセージカードが付属します。</p>
+                </div>
+            </div>
+
+            <div class="price-table fade-in">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>商品名</th>
+                            <th>内容</th>
+                            <th>価格</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="price-highlight">
+                            <td><strong>美蚕雅 1キット</strong></td>
+                            <td><strong>シルク糸・作り方ガイド・メッセージカード 全て込み</strong></td>
+                            <td><strong>¥1,500</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- How-to セクション -->
+    <section class="howto section" id="howto">
+        <div class="container">
+            <h2 class="section-title">作り方</h2>
+            <div class="howto-content">
+                <div class="video-container fade-in">
+                    <iframe 
+                        src="https://www.youtube.com/embed/cLySdMpR4Rg" 
+                        title="美蚕雅の作り方"
+                        frameborder="0" 
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        aria-label="美蚕雅ミサンガの作り方動画">
+                    </iframe>
+                </div>
+                <div class="steps-grid">
+                    <div class="step-item fade-in">
+                        <div class="step-number">1</div>
+                        <h4>糸の準備</h4>
+                        <p>3色の糸を40cmずつカットし、束ねて結びます</p>
+                    </div>
+                    <div class="step-item fade-in">
+                        <div class="step-number">2</div>
+                        <h4>編み始め</h4>
+                        <p>基本の三つ編みからスタートして、パターンを作ります</p>
+                    </div>
+                    <div class="step-item fade-in">
+                        <div class="step-number">3</div>
+                        <h4>模様作り</h4>
+                        <p>40〜60分かけて、お好みの模様を編み込みます</p>
+                    </div>
+                    <div class="step-item fade-in">
+                        <div class="step-number">4</div>
+                        <h4>仕上げ</h4>
+                        <p>最後に結んで完成。メッセージカードも忘れずに</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery セクション -->
+    <section class="gallery section" id="gallery">
+        <div class="container">
+            <h2 class="section-title">ギャラリー</h2>
+            <div class="gallery-grid">
+                <div class="gallery-item fade-in">
+                    <div class="gallery-image" style="background-image: url('usui3.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="gallery-caption">メッセージガイド</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-image" style="background-image: url('usui4.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="gallery-caption">商品パッケージデザイン</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-image" style="background-image: url('usui5.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="gallery-caption">ワークショップの風景</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-image" style="background-image: url('usui6.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="gallery-caption">店頭においている様子</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-image" style="background-image: url('usui7.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="gallery-caption">エコラボカフェでの体験版</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <div class="gallery-image" style="background-image: url('usui8.jpg'); background-size: cover; background-position: center;"></div>
+                    <div class="gallery-caption">シルク糸</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA / Purchase セクション -->
+    <section class="cta section" id="contact">
+        <div class="container">
+            <h2 class="section-title">ご購入・お問い合わせ</h2>
+            <p class="fade-in">現在89キット分の在庫をご用意しております。ワークショップでの体験や、ギフトとしてのご購入も承っております。</p>
+            <div class="cta-buttons">
+                <a href="contact.html" class="btn btn-primary fade-in">詳しいお問い合わせ</a>
+                <a href="mailto:team.usuiseiito@gmail.com" class="btn btn-secondary fade-in">メールで連絡</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mission</h4>
+                    <p>絹産業で群馬を盛り上げる。富岡製糸場を世界に誇る日本のシンボルに。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Vision</h4>
+                    <p>若い世代へシルクの魅力を知ってもらう。「えっ、これシルクなの？」から始まる関心を。</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Values</h4>
+                    <ul>
+                        <li>地域をにぎわす - 群馬の活性化と雇用創出</li>
+                        <li>歴史とつなぐ - 伝統と革新の共存</li>
+                        <li>仲間を増やす - 世代を超えたコラボ</li>
+                        <li>魅力を広める - シルクの今を発信</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>連携パートナー</h4>
+                    <ul>
+                        <li>碓氷製糸株式会社</li>
+                        <li>絹遊塾工房風花</li>
+                        <li>学生団体SONOSAKI</li>
+                        <li>高崎経済大学</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 チーム碓氷製糸. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // スクロールアニメーション
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // ヘッダー制御
+        function initHeaderControl() {
+            const header = document.querySelector('header');
+            let lastScrollY = window.scrollY;
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > 100) {
+                    header.style.background = 'rgba(248, 245, 241, 0.98)';
+                } else {
+                    header.style.background = 'rgba(248, 245, 241, 0.95)';
+                }
+
+                lastScrollY = currentScrollY;
+            });
+        }
+
+        // スムーズスクロール
+        function initSmoothScroll() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        const offsetTop = target.offsetTop - 80;
+                        window.scrollTo({
+                            top: offsetTop,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        }
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            initScrollAnimations();
+            initHeaderControl();
+            initSmoothScroll();
+            
+            // 初期表示要素のアニメーション
+            setTimeout(() => {
+                const fadeElements = document.querySelectorAll('.fade-in');
+                fadeElements.forEach((el, index) => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        setTimeout(() => {
+                            el.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
