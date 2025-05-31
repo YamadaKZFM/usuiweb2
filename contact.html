@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ - 美蚕雅（みさんが）- チーム碓氷製糸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* =========================
+           カラーパレット & ベース設定
+        ========================= */
+        :root {
+            --bg-main: #F8F5F1;
+            --brown-deep: #4B2E2E;
+            --brown-light: #7F5C49;
+            --accent-red: #B5302C;
+            --text-body: #3A2A24;
+            --white: #FFFFFF;
+            --border-light: #E8E0DB;
+            --success-color: #2E7D32;
+            --error-color: #D32F2F;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            line-height: 1.8;
+            color: var(--text-body);
+            background: var(--bg-main);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1, h2, h3 {
+            font-family: 'YuMincho', '游明朝', serif;
+            font-weight: 500;
+        }
+
+        /* =========================
+           固定ヘッダー
+        ========================= */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(248, 245, 241, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-light);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-family: 'YuMincho', '游明朝', serif;
+            font-size: 1.5rem;
+            color: var(--brown-deep);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-body);
+            font-weight: 400;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--brown-light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--brown-light);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        /* =========================
+           ページヘッダー
+        ========================= */
+        .page-header {
+            padding: 120px 0 80px;
+            background: var(--white);
+            text-align: center;
+            border-bottom: 2px solid var(--brown-deep);
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: var(--brown-deep);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            color: var(--brown-light);
+            font-size: 1.1rem;
+        }
+
+        /* =========================
+           メインコンテンツ
+        ========================= */
+        .main-content {
+            padding: 80px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            margin-top: 3rem;
+        }
+
+        /* =========================
+           連絡先情報
+        ========================= */
+        .contact-info h3 {
+            font-size: 1.8rem;
+            color: var(--brown-deep);
+            margin-bottom: 2rem;
+        }
+
+        .info-item {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 2px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 15px rgba(75, 46, 46, 0.1);
+            border-left: 4px solid var(--brown-light);
+        }
+
+        .info-item h4 {
+            color: var(--brown-deep);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-item p {
+            color: var(--text-body);
+            line-height: 1.6;
+        }
+
+        .info-icon {
+            font-size: 1.2rem;
+        }
+
+        /* =========================
+           お問い合わせフォーム
+        ========================= */
+        .contact-form {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: 2px;
+            box-shadow: 0 8px 30px rgba(75, 46, 46, 0.15);
+        }
+
+        .contact-form h3 {
+            font-size: 1.8rem;
+            color: var(--brown-deep);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--brown-deep);
+            font-weight: 500;
+        }
+
+        .required {
+            color: var(--accent-red);
+            margin-left: 3px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 2px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: var(--bg-main);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--brown-light);
+            background: var(--white);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group.error input,
+        .form-group.error textarea,
+        .form-group.error select {
+            border-color: var(--error-color);
+        }
+
+        .error-message {
+            color: var(--error-color);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .submit-btn {
+            background: var(--brown-deep);
+            color: var(--white);
+            padding: 15px 40px;
+            border: none;
+            border-radius: 2px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            font-family: inherit;
+        }
+
+        .submit-btn:hover {
+            background: var(--brown-light);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* =========================
+           成功メッセージ
+        ========================= */
+        .success-message {
+            background: var(--success-color);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 2px;
+            margin-bottom: 2rem;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        /* =========================
+           FAQ セクション
+        ========================= */
+        .faq-section {
+            background: var(--white);
+            padding: 80px 0;
+            margin-top: 80px;
+        }
+
+        .faq-title {
+            font-size: 2.5rem;
+            color: var(--brown-deep);
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .faq-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 2px;
+            background: var(--brown-light);
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--bg-main);
+            margin-bottom: 1rem;
+            border-radius: 2px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(75, 46, 46, 0.1);
+        }
+
+        .faq-question {
+            background: var(--white);
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--brown-deep);
+            transition: background 0.3s ease;
+            position: relative;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background: var(--bg-main);
+        }
+
+        .faq-question::after {
+            content: '+';
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--brown-light);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: translateY(-50%) rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: var(--bg-main);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 1.5rem 2rem;
+            max-height: 300px;
+        }
+
+        .faq-answer p {
+            color: var(--text-body);
+            line-height: 1.7;
+        }
+
+        /* =========================
+           Footer
+        ========================= */
+        footer {
+            background: var(--brown-deep);
+            color: var(--white);
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--brown-light);
+        }
+
+        /* =========================
+           レスポンシブ対応
+        ========================= */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+
+            .page-header {
+                padding: 100px 0 60px;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .main-content,
+            .faq-section {
+                padding: 60px 0;
+            }
+
+            .faq-question,
+            .faq-answer {
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .info-item,
+            .contact-form {
+                padding: 1.5rem;
+            }
+        }
+
+        /* =========================
+           アニメーション
+        ========================= */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- 固定ヘッダー -->
+    <header>
+        <nav class="container">
+            <a href="index.html" class="logo">チーム碓氷製糸</a>
+            <ul class="nav-links">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="about.html">活動について</a></li>
+                <li><a href="contact.html" class="active">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- ページヘッダー -->
+    <section class="page-header">
+        <div class="container">
+            <h1>お問い合わせ</h1>
+            <p>美蚕雅についてのご質問・ご相談はお気軽にどうぞ</p>
+        </div>
+    </section>
+
+    <!-- メインコンテンツ -->
+    <section class="main-content">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- 連絡先情報 -->
+                <div class="contact-info fade-in">
+                    <h3>連絡先情報</h3>
+                    
+                    <div class="info-item">
+                        <h4><span class="info-icon">📧</span>メール</h4>
+                        <p>kz.fm.1009@gmail.com<br>
+                        24時間以内にご返信いたします</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h4><span class="info-icon">📱</span>SNS</h4>
+                        <p>近日公開予定<br>
+                        最新情報をお待ちください</p>
+                    </div>
+
+                    <div class="info-item">
+                        <h4><span class="info-icon">📍</span>活動拠点</h4>
+                        <p>群馬県高崎市<br>
+                        高崎経済大学<br>
+                        学生団体SONOSAKI</p>
+                    </div>
+                </div>
+
+                <!-- お問い合わせフォーム -->
+                <div class="contact-form fade-in">
+                    <h3>お問い合わせフォーム</h3>
+                    
+                    <div class="success-message" id="successMessage">
+                        お問い合わせありがとうございます！<br>
+                        内容を確認の上、24時間以内にご返信いたします。
+                    </div>
+
+                    <form id="contactForm" action="https://formspree.io/f/mldnrzge" method="POST">
+                        <input type="hidden" name="_subject" value="美蚕雅ウェブサイトからのお問い合わせ">
+                        
+                        <div class="form-group">
+                            <label for="name">お名前<span class="required">*</span></label>
+                            <input type="text" id="name" name="name" required>
+                            <div class="error-message">お名前を入力してください</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">メールアドレス<span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="error-message">正しいメールアドレスを入力してください</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">電話番号</label>
+                            <input type="tel" id="phone" name="phone">
+                            <div class="error-message">正しい電話番号を入力してください</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="category">お問い合わせ種別<span class="required">*</span></label>
+                            <select id="category" name="category" required>
+                                <option value="">選択してください</option>
+                                <option value="商品購入">商品購入について</option>
+                                <option value="ワークショップ">ワークショップ参加について</option>
+                                <option value="卸売り">卸売り・大量注文について</option>
+                                <option value="連携提案">連携・協力について</option>
+                                <option value="取材">取材・メディア関係</option>
+                                <option value="プロジェクト参加">プロジェクト参加について</option>
+                                <option value="その他">その他</option>
+                            </select>
+                            <div class="error-message">お問い合わせ種別を選択してください</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">件名<span class="required">*</span></label>
+                            <input type="text" id="subject" name="subject" required>
+                            <div class="error-message">件名を入力してください</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">メッセージ<span class="required">*</span></label>
+                            <textarea id="message" name="message" placeholder="お問い合わせ内容をご記入ください" required></textarea>
+                            <div class="error-message">メッセージを入力してください</div>
+                        </div>
+
+                        <button type="submit" class="submit-btn" id="submitBtn">
+                            送信する
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ セクション -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="faq-title">よくある質問</h2>
+            
+            <div class="faq-list">
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        美蚕雅はどこで購入できますか？
+                    </div>
+                    <div class="faq-answer">
+                        <p>現在は直接販売のみとなっております。上記のお問い合わせフォームまたはメールでご連絡ください。89キット分の在庫をご用意しており、ご注文いただいてから1週間程度でお届けいたします。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        ワークショップは開催していますか？
+                    </div>
+                    <div class="faq-answer">
+                        <p>はい、不定期でワークショップを開催しています。親子での参加も歓迎しており、約40〜60分で完成できます。開催予定はSNSでお知らせしますので、フォローをお願いします。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        初心者でも作れますか？
+                    </div>
+                    <div class="faq-answer">
+                        <p>もちろんです！詳細な作り方ガイドと動画マニュアル（QRコード）が付属しているので、初心者の方でも安心して作っていただけます。基本の三つ編みができれば大丈夫です。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        シルクの品質について教えてください
+                    </div>
+                    <div class="faq-answer">
+                        <p>群馬県内唯一の製糸工場である碓氷製糸株式会社から仕入れた純国産シルクを使用しています。絹遊塾工房風花様にて草木染めで染色し、天然由来の美しい色合いに仕上げています。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        送料はかかりますか？
+                    </div>
+                    <div class="faq-answer">
+                        <p>申し訳ございませんが、送料は別途ご負担いただいております。地域により異なりますので、ご注文時に詳細をお知らせいたします。複数個ご注文の場合は送料の割引もございます。</p>
+                    </div>
+                </div>
+
+                <div class="faq-item fade-in">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        企業・団体での連携は可能ですか？
+                    </div>
+                    <div class="faq-answer">
+                        <p>はい、大歓迎です！学校での体験授業、企業研修、イベント出展など様々な形での連携をご提案いたします。群馬県の伝統産業PRにもお役立ていただけます。まずはお気軽にご相談ください。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">ホーム</a>
+                <a href="about.html">活動について</a>
+                <a href="contact.html">お問い合わせ</a>
+            </div>
+            <p>&copy; 2025 チーム碓氷製糸. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // スクロールアニメーション
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.fade-in').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // FAQ制御
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            const isActive = faqItem.classList.contains('active');
+            
+            // 他のFAQを閉じる
+            document.querySelectorAll('.faq-item.active').forEach(item => {
+                if (item !== faqItem) {
+                    item.classList.remove('active');
+                }
+            });
+            
+            // クリックされたFAQをトグル
+            faqItem.classList.toggle('active');
+        }
+
+        // フォームバリデーション
+        function validateForm() {
+            const form = document.getElementById('contactForm');
+            const formGroups = form.querySelectorAll('.form-group');
+            let isValid = true;
+
+            formGroups.forEach(group => {
+                const input = group.querySelector('input, textarea, select');
+                const isRequired = input.hasAttribute('required');
+                
+                // エラー状態をリセット
+                group.classList.remove('error');
+
+                if (isRequired && !input.value.trim()) {
+                    group.classList.add('error');
+                    isValid = false;
+                } else if (input.type === 'email' && input.value) {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(input.value)) {
+                        group.classList.add('error');
+                        isValid = false;
+                    }
+                } else if (input.type === 'tel' && input.value) {
+                    const phonePattern = /^[\d\-\(\)\+\s]+$/;
+                    if (!phonePattern.test(input.value)) {
+                        group.classList.add('error');
+                        isValid = false;
+                    }
+                }
+            });
+
+            return isValid;
+        }
+
+        // フォーム送信処理
+        function initFormSubmission() {
+            const form = document.getElementById('contactForm');
+            const submitBtn = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('successMessage');
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault(); // デフォルト送信を防ぐ
+                
+                if (!validateForm()) {
+                    return;
+                }
+
+                // 送信中の状態
+                submitBtn.disabled = true;
+                submitBtn.textContent = '送信中...';
+
+                // FormDataを作成
+                const formData = new FormData(form);
+
+                // Formspreeに送信
+                fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        showSuccessMessage();
+                        form.reset();
+                    } else {
+                        return response.json().then(data => {
+                            throw new Error(data.error || '送信に失敗しました');
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Form submission error:', error);
+                    alert('送信エラーが発生しました。しばらく後にもう一度お試しください。\nエラー: ' + error.message);
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '送信する';
+                });
+            });
+
+            function showSuccessMessage() {
+                successMessage.classList.add('show');
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                
+                // 5秒後にメッセージを非表示
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+            }
+        }
+
+        // リアルタイムバリデーション
+        function initRealTimeValidation() {
+            const inputs = document.querySelectorAll('input[required], textarea[required], select[required]');
+            
+            inputs.forEach(input => {
+                input.addEventListener('blur', function() {
+                    const group = this.closest('.form-group');
+                    
+                    // エラー状態をリセット
+                    group.classList.remove('error');
+                    
+                    if (this.hasAttribute('required') && !this.value.trim()) {
+                        group.classList.add('error');
+                    } else if (this.type === 'email' && this.value) {
+                        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                        if (!emailPattern.test(this.value)) {
+                            group.classList.add('error');
+                        }
+                    }
+                });
+
+                // フォーカス時にエラー状態をクリア
+                input.addEventListener('focus', function() {
+                    const group = this.closest('.form-group');
+                    group.classList.remove('error');
+                });
+            });
+        }
+
+        // ヘッダー制御
+        function initHeaderControl() {
+            const header = document.querySelector('header');
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > 100) {
+                    header.style.background = 'rgba(248, 245, 241, 0.98)';
+                } else {
+                    header.style.background = 'rgba(248, 245, 241, 0.95)';
+                }
+            });
+        }
+
+        // 初期化
+        document.addEventListener('DOMContentLoaded', function() {
+            initScrollAnimations();
+            initFormSubmission();
+            initRealTimeValidation();
+            initHeaderControl();
+            
+            // 初期表示要素のアニメーション
+            setTimeout(() => {
+                const fadeElements = document.querySelectorAll('.fade-in');
+                fadeElements.forEach((el, index) => {
+                    if (el.getBoundingClientRect().top < window.innerHeight) {
+                        setTimeout(() => {
+                            el.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }, 100);
+        });
+    </script>
+</body>
+</html>
+                
